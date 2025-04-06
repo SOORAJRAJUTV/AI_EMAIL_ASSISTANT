@@ -1,0 +1,72 @@
+2025-04-06 15:27:29,232 - __main__ - INFO - Starting server on 0.0.0.0:5000
+2025-04-06 15:27:29,254 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.65.122:5000
+2025-04-06 15:27:29,254 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-06 15:27:35,742 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:35] "GET / HTTP/1.1" 200 -
+2025-04-06 15:27:35,842 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:35] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-04-06 15:27:35,847 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:35] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-06 15:27:35,875 - __main__ - INFO - Starting email fetch operation
+2025-04-06 15:27:36,444 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-04-06 15:27:39,211 - __main__ - INFO - Email fetch complete. 1 new emails stored
+2025-04-06 15:27:39,213 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:39] "GET /api/emails HTTP/1.1" 200 -
+2025-04-06 15:27:39,217 - __main__ - WARNING - Rate limit exceeded. Try again in 56.7 seconds
+2025-04-06 15:27:39,219 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:39] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:39,222 - __main__ - WARNING - Rate limit exceeded. Try again in 56.7 seconds
+2025-04-06 15:27:39,224 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:39] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:42,856 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:42] "GET / HTTP/1.1" 200 -
+2025-04-06 15:27:42,892 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:42] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-06 15:27:42,893 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:42] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-04-06 15:27:42,902 - __main__ - WARNING - Rate limit exceeded. Try again in 53.0 seconds
+2025-04-06 15:27:42,904 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:42] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:42,909 - __main__ - WARNING - Rate limit exceeded. Try again in 53.0 seconds
+2025-04-06 15:27:42,912 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:42] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:42,921 - __main__ - WARNING - Rate limit exceeded. Try again in 53.0 seconds
+2025-04-06 15:27:42,923 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:42] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:43,967 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:43] "GET / HTTP/1.1" 200 -
+2025-04-06 15:27:43,994 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:43] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-04-06 15:27:43,995 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:43] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-06 15:27:44,005 - __main__ - WARNING - Rate limit exceeded. Try again in 51.9 seconds
+2025-04-06 15:27:44,006 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:44,014 - __main__ - WARNING - Rate limit exceeded. Try again in 51.9 seconds
+2025-04-06 15:27:44,018 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:44,023 - __main__ - WARNING - Rate limit exceeded. Try again in 51.9 seconds
+2025-04-06 15:27:44,027 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:44,190 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "GET / HTTP/1.1" 200 -
+2025-04-06 15:27:44,219 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-06 15:27:44,220 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-04-06 15:27:44,228 - __main__ - WARNING - Rate limit exceeded. Try again in 51.6 seconds
+2025-04-06 15:27:44,229 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:44,234 - __main__ - WARNING - Rate limit exceeded. Try again in 51.6 seconds
+2025-04-06 15:27:44,235 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:44,241 - __main__ - WARNING - Rate limit exceeded. Try again in 51.6 seconds
+2025-04-06 15:27:44,244 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:44,413 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "GET / HTTP/1.1" 200 -
+2025-04-06 15:27:44,439 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-06 15:27:44,440 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-04-06 15:27:44,449 - __main__ - WARNING - Rate limit exceeded. Try again in 51.4 seconds
+2025-04-06 15:27:44,450 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:44,455 - __main__ - WARNING - Rate limit exceeded. Try again in 51.4 seconds
+2025-04-06 15:27:44,458 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:44,465 - __main__ - WARNING - Rate limit exceeded. Try again in 51.4 seconds
+2025-04-06 15:27:44,468 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:44,665 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "GET / HTTP/1.1" 200 -
+2025-04-06 15:27:44,698 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-06 15:27:44,702 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-04-06 15:27:44,720 - __main__ - WARNING - Rate limit exceeded. Try again in 51.2 seconds
+2025-04-06 15:27:44,723 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:44,735 - __main__ - WARNING - Rate limit exceeded. Try again in 51.1 seconds
+2025-04-06 15:27:44,735 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:44,742 - __main__ - WARNING - Rate limit exceeded. Try again in 51.1 seconds
+2025-04-06 15:27:44,744 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:44,883 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "GET / HTTP/1.1" 200 -
+2025-04-06 15:27:44,904 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-06 15:27:44,911 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-04-06 15:27:44,920 - __main__ - WARNING - Rate limit exceeded. Try again in 51.0 seconds
+2025-04-06 15:27:44,921 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:44,927 - __main__ - WARNING - Rate limit exceeded. Try again in 50.9 seconds
+2025-04-06 15:27:44,928 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:27:44,936 - __main__ - WARNING - Rate limit exceeded. Try again in 50.9 seconds
+2025-04-06 15:27:44,937 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:27:44] "[31m[1mGET /api/emails HTTP/1.1[0m" 429 -
+2025-04-06 15:32:19,184 - werkzeug - INFO - 127.0.0.1 - - [06/Apr/2025 15:32:19] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
