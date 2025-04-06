@@ -101,36 +101,39 @@ document.addEventListener('DOMContentLoaded', function () {
             hideLoading();
         }
     }
-
+    
     function renderEmails(emails) {
         if (!emails || emails.length === 0) {
             emailList.innerHTML = '<div class="empty-state">No emails found</div>';
             return;
         }
-
+    
         emailList.innerHTML = '';
-
+    
         emails.forEach(email => {
+            console.log("Email object:", email);  // Debugging
+    
             const emailId = email.message_id || email.id || '';
-
+            const emailBody = email.snippet || 'No content'; // ✅ Using snippet instead of body
+    
             const emailItem = document.createElement('div');
             emailItem.className = 'email-item';
             emailItem.dataset.id = emailId;
-
+    
             emailItem.innerHTML = `
                 <div class="email-header">
-                    <span class="email-sender">${escapeHtml(email.sender)}</span>
-                    <span class="email-date">${formatDate(email.timestamp)}</span>
+                    <span class="email-sender">${escapeHtml(email.from)}</span>
+                    <span class="email-date">${escapeHtml(email.date)}</span>
                 </div>
                 <div class="email-subject">${escapeHtml(email.subject)}</div>
-                <div class="email-snippet">${escapeHtml((email.body || '').substring(0, 100))}...</div>
+                <div class="email-body">${escapeHtml(emailBody)}</div>
                 <div class="email-actions">
                     <button class="reply-btn" data-id="${escapeHtml(emailId)}">
                         <i class="fas fa-reply"></i> Reply
                     </button>
                 </div>
             `;
-
+    
             emailItem.querySelector('.reply-btn').addEventListener('click', (e) => {
                 const button = e.currentTarget;
                 const id = button.dataset.id;
@@ -140,10 +143,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 generateReply(id);
             });
-
+    
             emailList.appendChild(emailItem);
         });
     }
+    
+    
+    
+    
 
     function searchEmails() {
         const query = searchInput.value.trim().toLowerCase();
