@@ -172,56 +172,39 @@ def get_email_details(email_id):
     except Exception as e:
         logger.error(f"Error getting email details: {str(e)}")
         return None
-
-def get_sender_email(email_id):
-    """Quickly get just the sender's email address"""
-    try:
-        service = authenticate_gmail()
-        msg_data = service.users().messages().get(
-            userId='me',
-            id=email_id,
-            format='metadata',
-            metadataHeaders=['From']
-        ).execute()
-        
-        from_header = next(
-            (h['value'] for h in msg_data.get('payload', {}).get('headers', []) 
-            if h['name'].lower() == 'from'),
-            ''
-        )
-        return parseaddr(from_header)[1] or from_header
-    except Exception as e:
-        logger.error(f"Error getting sender for email {email_id}: {str(e)}")
-        return None
-
-def send_email_reply(to, subject, body, email_id):
+    
+def send_email_reply(to, subject, body, email_id, in_reply_to=None):
     """Send an email reply and track it in replied emails"""
     if not to:
         logger.error("No recipient specified for reply")
         return False
-        
+
     try:
         service = authenticate_gmail()
-        
+
         # Create email message
         msg = email.message.EmailMessage()
         msg.set_content(body)
         msg['To'] = to
         msg['Subject'] = subject
         msg['From'] = BOT_EMAIL
-        
+
+        if in_reply_to:
+            msg['In-Reply-To'] = f"<{in_reply_to}>"
+            msg['References'] = f"<{in_reply_to}>"
+
         # Encode and send
         raw_message = base64.urlsafe_b64encode(msg.as_bytes()).decode()
         service.users().messages().send(
             userId='me',
             body={'raw': raw_message}
         ).execute()
-        
+
         # Track successful reply
         save_replied_email(email_id)
         logger.info(f"Successfully sent reply to {to}")
         return True
-        
+
     except HttpError as error:
         logger.error(f"Gmail API error sending reply: {error}")
         if error.resp.status == 429:

@@ -47,8 +47,31 @@ def init_db():
             FOREIGN KEY (email_id) REFERENCES emails (id)
         )
         ''')
+
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS deleted_emails (
+                message_id TEXT PRIMARY KEY
+            )
+        ''')
         
         conn.commit()
+
+def init_settings():
+    with sqlite3.connect(DB_FILE) as conn:
+        cursor = conn.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS settings (
+                key TEXT PRIMARY KEY,
+                value TEXT
+            )
+        ''')
+        # Initialize auto_reply_mode to OFF if not set
+        cursor.execute('''
+            INSERT OR IGNORE INTO settings (key, value)
+            VALUES ('auto_reply_mode', 'off')
+        ''')
+        conn.commit()
+
 
 def store_email(message_id, sender, recipient, subject, timestamp, body, thread_id=None, is_reply=False):
     """Store an email in the database"""
@@ -86,6 +109,29 @@ def get_email_thread(thread_id):
             ORDER BY created_at ASC
         ''', (thread_id,))
         return [dict(row) for row in cursor.fetchall()]
+    
+def is_email_deleted(message_id):
+    """Check if the email with given message_id has been marked as deleted"""
+    with sqlite3.connect(DB_FILE) as conn:
+        cursor = conn.cursor()
+        cursor.execute('''
+            SELECT 1 FROM deleted_emails WHERE message_id = ?
+        ''', (message_id,))
+        result = cursor.fetchone()
+        return result is not None
+    
+def mark_email_deleted(message_id):
+    """Mark an email as deleted by adding it to the deleted_emails table"""
+    with sqlite3.connect(DB_FILE) as conn:
+        cursor = conn.cursor()
+        cursor.execute('''
+            INSERT OR IGNORE INTO deleted_emails (message_id)
+            VALUES (?)
+        ''', (message_id,))
+        conn.commit()
+
+
+
 
 def log_action(email_id, action_type, details=None):
     """Log an action taken on an email"""
@@ -97,8 +143,31 @@ def log_action(email_id, action_type, details=None):
         ''', (email_id, action_type, details))
         conn.commit()
 
+
+def is_auto_reply_enabled():
+    with sqlite3.connect(DB_FILE) as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT value FROM settings WHERE key = 'auto_reply_mode'")
+        row = cursor.fetchone()
+        return row and row[0] == 'on'
+
+def set_auto_reply_mode(enabled):
+    with sqlite3.connect(DB_FILE) as conn:
+        cursor = conn.cursor()
+        value = 'on' if enabled else 'off'
+        cursor.execute('''
+            UPDATE settings
+            SET value = ?
+            WHERE key = 'auto_reply_mode'
+        ''', (value,))
+        conn.commit()
+
+
+
+
 # Initialize database when module is imported
 init_db()
+init_settings()
 
 
 

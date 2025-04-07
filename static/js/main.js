@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const replyContent = document.getElementById('reply-content');
     const searchInput = document.getElementById('email-search');
 
+    const autoReplyToggle = document.getElementById('auto-reply-toggle');
+    const autoReplyStatus = document.getElementById('auto-reply-status');
+
+
     // State
     let isFetching = false;
     let currentEmail = null;
@@ -17,6 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const FETCH_COOLDOWN = 60000;
 
     safeLoadEmails();
+    setupAutoReplyToggle();
+
 
     // Event Listeners
     refreshBtn.addEventListener('click', safeLoadEmails);
@@ -68,6 +74,45 @@ document.addEventListener('DOMContentLoaded', function () {
             showToast(error.message || "Failed to load emails", "error");
         }
     }
+
+    function setupAutoReplyToggle() {
+        if (!autoReplyToggle || !autoReplyStatus) return;
+    
+        // Get current status from backend
+        fetch('/auto-reply/status')
+            .then(res => res.json())
+            .then(data => {
+                autoReplyToggle.checked = data.auto_reply_enabled;
+                autoReplyStatus.textContent = data.auto_reply_enabled ? "ON" : "OFF";
+            })
+            .catch(err => {
+                console.error("Failed to fetch auto-reply status:", err);
+                autoReplyStatus.textContent = "Unavailable";
+            });
+    
+        // On toggle
+        autoReplyToggle.addEventListener('change', () => {
+            const enabled = autoReplyToggle.checked;
+    
+            fetch('/auto-reply/toggle', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ enabled })
+            })
+            .then(res => res.json())
+            .then(data => {
+                showToast(data.message || "Auto-reply mode updated");
+                autoReplyStatus.textContent = enabled ? "ON" : "OFF";
+            })
+            .catch(err => {
+                console.error("Failed to toggle auto-reply:", err);
+                showToast("Failed to update auto-reply mode", "error");
+                autoReplyToggle.checked = !enabled;
+                autoReplyStatus.textContent = autoReplyToggle.checked ? "ON" : "OFF";
+            });
+        });
+    }
+    
 
     async function loadEmails() {
         const now = Date.now();
@@ -332,4 +377,5 @@ document.addEventListener('DOMContentLoaded', function () {
         const loader = document.getElementById('page-loader');
         if (loader) loader.remove();
     }
+      
 });

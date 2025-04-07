@@ -43,6 +43,25 @@ def generate_reply(subject: str, context: str) -> str:
         print(f"Error generating reply: {e}")
         return "I encountered an error generating a reply. Please try again later."
 
+
+def calculate_priority_manually(email_text: str) -> int:
+    """Basic keyword-based fallback priority logic."""
+    email_text = email_text.lower()
+
+    if "urgent" in email_text or "asap" in email_text or "immediately" in email_text:
+        return 9
+    elif "please respond" in email_text or "awaiting your response" in email_text:
+        return 8
+    elif "meeting" in email_text or "schedule" in email_text:
+        return 7
+    elif "reminder" in email_text:
+        return 6
+    elif "fyi" in email_text or "for your information" in email_text:
+        return 3
+    else:
+        return 5
+
+
 def analyze_email(email_text: str) -> Dict[str, Any]:
     """Analyze email content for priority, category, and action items."""
     prompt = f"""
@@ -52,10 +71,10 @@ def analyze_email(email_text: str) -> Dict[str, Any]:
     - requires_action (boolean)
     - action_type (reply, schedule, forward, none)
     - key_topics (array of strings)
-    
+
     Email Content:
     {email_text}
-    
+
     Return ONLY valid JSON:
     """
     
@@ -66,83 +85,26 @@ def analyze_email(email_text: str) -> Dict[str, Any]:
             temperature=0.3,
             response_format={"type": "json_object"}
         )
-        return json.loads(response.choices[0].message.content)
+
+        analysis = json.loads(response.choices[0].message.content)
+
+        # Fallback priority logic if not present or too low/confusing
+        model_priority = analysis.get("priority", 0)
+        if model_priority < 1 or model_priority > 10:
+            analysis["priority"] = calculate_priority_manually(email_text)
+
+        return analysis
+
     except Exception as e:
         print(f"Error analyzing email: {e}")
         return {
             "category": "general",
-            "priority": 5,
+            "priority": calculate_priority_manually(email_text),
             "requires_action": False,
             "action_type": "none",
             "key_topics": []
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# import os
-# from groq import Groq
-# from dotenv import load_dotenv
-
-# # Load environment variables from .env file
-# load_dotenv()
-
-# # Get Groq API Key
-# GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-
-# # Initialize Groq client
-# client = Groq(api_key=GROQ_API_KEY)
-
-# def generate_reply(subject, body):
-#     prompt = f"Subject: {subject}\n\nEmail Body: {body}\nReply:"
-
-#     response = client.chat.completions.create(
-#         model="llama3-8b-8192",
-#         messages=[{"role": "user", "content": prompt}]
-#     )
-
-#     return response.choices[0].message.content.strip()
-
-
-
-
-
-# def analyze_email(email_text):
-#     """
-#     Dummy function to analyze email content. Modify this based on your needs.
-#     """
-#     return {"status": "processed", "content": email_text}
-
-# if __name__ == "__main__":
-#     # Example usage
-#     email_example = "Hey, can we schedule a meeting for tomorrow at 3 PM?"
-#     print("Generated Reply:", generate_reply(email_example))
-#     print("Email Analysis:", analyze_email(email_example))
 
 
 
